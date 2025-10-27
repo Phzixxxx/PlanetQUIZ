@@ -1,0 +1,271 @@
+@font-face {
+  font-family: 'Astroz';
+  src: url('Fonts/Astroz.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+body {
+    background-color: #333;
+    /* Fundo escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #e0e0e0;
+}
+
+.container {
+    background-color: #555;
+    /* Contêiner do quiz */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+h1 {
+    color: #f0f0f0;
+    margin-bottom: 30px;
+    padding-bottom: 5%;
+    
+    font-size: 3em;
+    font-family: Astroz,cursive;
+    
+    
+}
+
+h2 {
+    color: #f0f0f0;
+    margin-bottom: 15px;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 2px;
+    line-height: 1.2;
+    word-wrap: break-word; /* Quebra palavras se necessário */
+}
+
+p {
+    color: #e0e0e0;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    line-height: 2;
+}
+
+/* Estilo geral para todos os botões de controle (Iniciar, Opções, Sobre, Voltar) */
+button:not(.opcao) {
+    /* Aplica a botões que NÃO são opções de resposta */
+    background-color: #6a6a6a;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 8px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    width: 100%;
+    max-width: 300px;
+    /* Limite de largura para botões em telas maiores */
+}
+
+button:not(.opcao):hover {
+    background-color: #7a7a7a;
+    transform: translateY(-2px);
+}
+
+button:not(.opcao):active {
+    transform: translateY(0);
+}
+
+/* Container das opções de resposta */
+.opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Espaçamento entre as opções */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para os botões das opções de resposta (as alternativas) */
+.opcao {
+    background-color: #777;
+    /* Um cinza um pouco mais claro que o fundo do container */
+    color: white;
+    border: none;
+    /* Sem borda para um look mais limpo */
+    padding: 15px 20px;
+    /* Mais padding vertical para torná-las mais "altas" */
+    border-radius: 5px;
+    /* Cantos levemente arredondados */
+    cursor: pointer;
+    font-size: 1.1em;
+    /* Tamanho da fonte um pouco maior */
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    text-align: center;
+    /* CENTRALIZAR o texto das opções como na imagem */
+    width: 100%;
+}
+
+.opcao:hover {
+    background-color: #888;
+    /* Levemente mais claro no hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    /* Leve sombra no hover para profundidade */
+}
+
+.opcao:active {
+    background-color: #666;
+    /* Escurece um pouco ao clicar */
+    box-shadow: none;
+}
+
+.opcao:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+    background-color: #5a5a5a;
+    /* Mais escuro quando desabilitado */
+}
+
+/* Feedback de correto e errado */
+.correto {
+    background-color: #4CAF50;
+    /* Verde */
+    color: #4CAF50;
+    border: none;
+}
+
+.errado {
+    background-color: #f44336;
+    /* Vermelho */
+    color: #f44336;
+    border: none;
+}
+
+#feedback {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: opacity 0.5s;
+}
+
+.feedback-final {
+    color: green;
+    animation: fadeIn 1s;
+}
+
+
+/* Botões de voltar específicos */
+#backButton,
+#backFromOpcoes,
+#backFromSobre {
+    background-color: #6a6a6a;
+    /* Mantém o estilo dos botões de controle */
+}
+
+#backButton:hover,
+#backFromOpcoes:hover,
+#backFromSobre:hover {
+    background-color: #7a7a7a;
+}
+
+/* ... Seus estilos anteriores ... */
+
+#limparHistoricoButton {
+    background-color: 6a6a6a;
+    /* Um vermelho para o botão de limpar */
+    margin: 15px auto;
+    /* Centraliza horizontalmente e adiciona margem vertical */
+    display: block;
+    /* Garante que o margin auto funcione, embora já seja padrão para botões */
+    width: fit-content;
+    /* Ajusta a largura do botão ao seu conteúdo, permitindo centralização */
+    max-width: 200px;
+    /* Opcional: define uma largura máxima para o botão */
+}
+
+#limparHistoricoButton:hover {
+    background-color: #7a7a7a;
+}
+
+/* ... O restante do seu CSS ... */
+
+.mensagem-final {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: green;
+    animation: fadeIn 1s;
+}
+
+
+/* Estilos para o pop-up customizado */
+.pop-up-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Sobreposição escura */
+    display: none; /* Escondido por padrão */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.pop-up-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative; /* Para o botão de fechar */
+}
+
+.pop-up-content p {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.pop-up-content .fechar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.pop-up-container {
+    display: none; /* Isso deve ser 'none' por padrão */
+    /* ... (resto do código CSS) */
+}
+
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Fica atrás de tudo */
+}
+
+#titulo-pergunta {
+    font-size: clamp(1.2rem, 4vw, 2rem); /* Responsivo e menor que h2 padrão */
+    line-height: 1.3;
+    word-wrap: break-word;
+    letter-spacing: 1px;
+}
+
+
