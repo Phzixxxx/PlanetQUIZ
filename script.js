@@ -185,37 +185,54 @@ document.addEventListener('DOMContentLoaded', () => {
         carregarProximaPergunta();
     }
 
-    // === Carregar próxima pergunta ===
-    function carregarProximaPergunta() {
-        if (indicePerguntaAtual < perguntasAtivas.length) {
-            const perguntaAtual = perguntasAtivas[indicePerguntaAtual];
-            document.getElementById('titulo-pergunta').textContent = `Pergunta ${indicePerguntaAtual + 1}`;
-            document.getElementById('texto-pergunta').textContent = perguntaAtual.pergunta;
+   // === Carregar próxima pergunta ===
+function carregarProximaPergunta() {
+    if (indicePerguntaAtual < perguntasAtivas.length) {
+        const perguntaAtual = perguntasAtivas[indicePerguntaAtual];
+        document.getElementById('titulo-pergunta').textContent = `Pergunta ${indicePerguntaAtual + 1}`;
+        document.getElementById('texto-pergunta').textContent = perguntaAtual.pergunta;
 
-            const containerOpcoes = document.getElementById('container-opcoes');
-            containerOpcoes.innerHTML = '';
+        const containerOpcoes = document.getElementById('container-opcoes');
+        containerOpcoes.innerHTML = '';
 
-            perguntaAtual.opcoes.forEach(opcao => {
-                const button = document.createElement('button');
-                button.textContent = opcao;
-                button.addEventListener('click', () => verificarResposta(opcao, perguntaAtual.respostaCorreta));
-                containerOpcoes.appendChild(button);
-            });
-        } else {
-            mostrarSecao(secaoInicial);
-        }
+        perguntaAtual.opcoes.forEach(opcao => {
+            const button = document.createElement('button');
+            button.textContent = opcao;
+            button.classList.add('opcao-btn'); // ✅ classe CSS das opções
+            button.addEventListener('click', () => verificarResposta(opcao, perguntaAtual.respostaCorreta, button));
+            containerOpcoes.appendChild(button);
+        });
+    } else {
+        mostrarSecao(secaoInicial);
+    }
+}
+
+// === Verificar resposta (com cores e som) ===
+function verificarResposta(opcaoSelecionada, respostaCorreta, botaoSelecionado) {
+    const botoes = document.querySelectorAll('.opcao-btn');
+
+    // Desabilita todos após o clique
+    botoes.forEach(botao => botao.disabled = true);
+
+    if (opcaoSelecionada === respostaCorreta) {
+        botaoSelecionado.classList.add('correta');
+        document.getElementById('som-acerto').play();
+    } else {
+        botaoSelecionado.classList.add('errada');
+        document.getElementById('som-erro').play();
+
+        // Mostra qual era a certa
+        const correta = Array.from(botoes).find(b => b.textContent === respostaCorreta);
+        if (correta) correta.classList.add('correta');
     }
 
-    // === Verificar resposta ===
-    function verificarResposta(opcaoSelecionada, respostaCorreta) {
-        if (opcaoSelecionada === respostaCorreta) {
-            document.getElementById('som-acerto').play();
-        } else {
-            document.getElementById('som-erro').play();
-        }
+    // Espera 1s antes de ir para a próxima
+    setTimeout(() => {
         indicePerguntaAtual++;
         carregarProximaPergunta();
-    }
+    }, 1000);
+}
+
 
     // === Botões de navegação ===
     document.getElementById('startButton').addEventListener('click', iniciarQuizCompleto); // agora inicia todas as perguntas
