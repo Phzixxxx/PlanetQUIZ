@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     // === Banco de perguntas por ano ===
     const perguntasPorAno = {
         "6ano": [
@@ -144,25 +145,31 @@ document.addEventListener('DOMContentLoaded', () => {
     { pergunta: "Qual planeta tem um dia mais longo que um ano?", opcoes: ["A) Vênus", "B) Mercúrio", "C) Marte"], respostaCorreta: "A) Vênus" }
 ]
     };
+    // === Controle de Perguntas e Pontuação ===
+    let perguntasAtivas = [];
+    let indicePerguntaAtual = 0;
+    let pontuacao = 0;
 
-    // === Seções ===
+    // === Recupera pontuação salva, se existir ===
+    const pontuacaoSalva = localStorage.getItem('pontuacaoQuiz');
+    if (pontuacaoSalva) {
+        pontuacao = parseInt(pontuacaoSalva);
+        console.log(`Pontuação anterior: ${pontuacao}`);
+    }
+
+    // === Função para trocar de seção ===
     const secaoInicial = document.getElementById('secao-inicial');
     const secaoQuiz = document.getElementById('secao-quiz');
     const secaoOpcoes = document.getElementById('secao-opcoes');
     const secaoSobre = document.getElementById('secao-sobre');
     const secaoDificuldade = document.getElementById('secao-dificuldade');
 
-    // === Controle de Perguntas ===
-    let perguntasAtivas = [];
-    let indicePerguntaAtual = 0;
-
-    // === Função para trocar de seção ===
     function mostrarSecao(secao) {
         [secaoInicial, secaoQuiz, secaoOpcoes, secaoSobre, secaoDificuldade].forEach(s => s.style.display = 'none');
         secao.style.display = 'block';
     }
 
-    // === Iniciar quiz com TODAS as perguntas ===
+    // === Iniciar quiz completo ou por ano ===
     function iniciarQuizCompleto() {
         perguntasAtivas = [
             ...perguntasPorAno["6ano"],
@@ -172,86 +179,115 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         embaralharArray(perguntasAtivas);
         indicePerguntaAtual = 0;
+        pontuacao = 0;
         mostrarSecao(secaoQuiz);
         carregarProximaPergunta();
     }
 
-    // === Iniciar quiz por ano específico ===
     function iniciarQuizPorAno(ano) {
         perguntasAtivas = perguntasPorAno[ano];
         embaralharArray(perguntasAtivas);
         indicePerguntaAtual = 0;
+        pontuacao = 0;
         mostrarSecao(secaoQuiz);
         carregarProximaPergunta();
     }
 
-   // === Carregar próxima pergunta ===
-function carregarProximaPergunta() {
-    if (indicePerguntaAtual < perguntasAtivas.length) {
-        const perguntaAtual = perguntasAtivas[indicePerguntaAtual];
-        document.getElementById('titulo-pergunta').textContent = `Pergunta ${indicePerguntaAtual + 1}`;
-        document.getElementById('texto-pergunta').textContent = perguntaAtual.pergunta;
+    // === Carregar próxima pergunta ===
+    function carregarProximaPergunta() {
+        if (indicePerguntaAtual < perguntasAtivas.length) {
+            const perguntaAtual = perguntasAtivas[indicePerguntaAtual];
+            document.getElementById('titulo-pergunta').textContent = `Pergunta ${indicePerguntaAtual + 1} de ${perguntasAtivas.length}`;
+            document.getElementById('texto-pergunta').textContent = perguntaAtual.pergunta;
 
-        const containerOpcoes = document.getElementById('container-opcoes');
-        containerOpcoes.innerHTML = '';
+            const containerOpcoes = document.getElementById('container-opcoes');
+            containerOpcoes.innerHTML = '';
 
-        perguntaAtual.opcoes.forEach(opcao => {
-            const button = document.createElement('button');
-            button.textContent = opcao;
-            button.classList.add('opcao-btn'); // ✅ classe CSS das opções
-            button.addEventListener('click', () => verificarResposta(opcao, perguntaAtual.respostaCorreta, button));
-            containerOpcoes.appendChild(button);
-        });
-    } else {
-        mostrarSecao(secaoInicial);
-    }
+            perguntaAtual.opcoes.forEach(opcao => {
+                const button = document.createElement('button');
+                button.textContent = opcao;
+                button.classList.add('opcao-btn');
+                button.addEventListener('click', () => verificarResposta(opcao, perguntaAtual.respostaCorreta, button));
+                containerOpcoes.appendChild(button);
+            });
+         } // Supondo que você tenha uma variável 'pontuacao' e 'perguntasAtivas' 
+// que indicam o total de perguntas
+else {
+    const secaoQuiz = document.getElementById('secao-quiz');
+    const mensagemResultado = document.getElementById('mensagem-resultado');
+
+    // Esconder o quiz
+    secaoQuiz.style.display = 'none';
+
+    // Atualizar e mostrar a mensagem
+    mensagemResultado.textContent = `Parabéns! Você acertou ${pontuacao} de ${perguntasAtivas.length} perguntas.`;
+    mensagemResultado.style.display = 'block';
+
+    // Salvar pontuação
+    localStorage.setItem('pontuacaoQuiz', pontuacao);
 }
 
-// === Verificar resposta (com cores e som) ===
-function verificarResposta(opcaoSelecionada, respostaCorreta, botaoSelecionado) {
-    const botoes = document.querySelectorAll('.opcao-btn');
 
-    // Desabilita todos após o clique
-    botoes.forEach(botao => botao.disabled = true);
-
-    if (opcaoSelecionada === respostaCorreta) {
-        botaoSelecionado.classList.add('correta');
-        document.getElementById('som-acerto').play();
-    } else {
-        botaoSelecionado.classList.add('errada');
-        document.getElementById('som-erro').play();
-
-        // Mostra qual era a certa
-        const correta = Array.from(botoes).find(b => b.textContent === respostaCorreta);
-        if (correta) correta.classList.add('correta');
     }
 
-    // Espera 1s antes de ir para a próxima
-    setTimeout(() => {
-        indicePerguntaAtual++;
-        carregarProximaPergunta();
-    }, 1000);
-}
+    // === Verificar resposta (com som e cor) ===
+    function verificarResposta(opcaoSelecionada, respostaCorreta, botaoSelecionado) {
+        const botoes = document.querySelectorAll('.opcao-btn');
+        botoes.forEach(botao => botao.disabled = true);
 
+        if (opcaoSelecionada === respostaCorreta) {
+            botaoSelecionado.classList.add('correta');
+            document.getElementById('som-acerto').play();
+            pontuacao++;
+        } else {
+            botaoSelecionado.classList.add('errada');
+            document.getElementById('som-erro').play();
+            const correta = Array.from(botoes).find(b => b.textContent === respostaCorreta);
+            if (correta) correta.classList.add('correta');
+        }
+
+        // Atualiza pontuação salva
+        localStorage.setItem('pontuacaoQuiz', pontuacao);
+
+        setTimeout(() => {
+            indicePerguntaAtual++;
+            carregarProximaPergunta();
+        }, 1000);
+    }
 
     // === Botões de navegação ===
-    document.getElementById('startButton').addEventListener('click', iniciarQuizCompleto); // agora inicia todas as perguntas
+    document.getElementById('startButton').addEventListener('click', iniciarQuizCompleto);
     document.getElementById('OpcoesButton').addEventListener('click', () => mostrarSecao(secaoOpcoes));
     document.getElementById('SobreButton').addEventListener('click', () => mostrarSecao(secaoSobre));
-
     document.getElementById('backFromOpcoes').addEventListener('click', () => mostrarSecao(secaoInicial));
     document.getElementById('backFromSobre').addEventListener('click', () => mostrarSecao(secaoInicial));
     document.getElementById('backFromDificuldade').addEventListener('click', () => mostrarSecao(secaoOpcoes));
-
-    // === Botão Dificuldade ===
     document.getElementById('botao-dificuldade').addEventListener('click', () => mostrarSecao(secaoDificuldade));
-
-    // === Botões de seleção de ano ===
     document.getElementById('btn-6ano').addEventListener('click', () => iniciarQuizPorAno("6ano"));
     document.getElementById('btn-7ano').addEventListener('click', () => iniciarQuizPorAno("7ano"));
     document.getElementById('btn-8ano').addEventListener('click', () => iniciarQuizPorAno("8ano"));
     document.getElementById('btn-9ano').addEventListener('click', () => iniciarQuizPorAno("9ano"));
-
-    // === Botão voltar dentro do quiz ===
     document.getElementById('backButton').addEventListener('click', () => mostrarSecao(secaoInicial));
+
+    // === Botão de Mudo ===
+    let isMuted = false;
+    const muteToggleButton = document.getElementById('muteToggleButton');
+    function toggleMute() {
+        isMuted = !isMuted;
+        muteToggleButton.textContent = isMuted ? '🔈' : '🔊';
+        document.getElementById('som-acerto').muted = isMuted;
+        document.getElementById('som-erro').muted = isMuted;
+    }
+    muteToggleButton.addEventListener('click', toggleMute);
+
+    // === Botão de limpar histórico ===
+    const clearHistoryButton = document.getElementById('clearHistoryButton');
+    if (clearHistoryButton) {
+        clearHistoryButton.addEventListener('click', () => {
+            localStorage.clear();
+            pontuacao = 0;
+            alert("Histórico e pontuação limpos com sucesso!");
+        });
+    }
 });
+

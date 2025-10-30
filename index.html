@@ -36,7 +36,7 @@
 
   <!-- Seção inicial -->
   <div class="container" id="secao-inicial" style="display: block;">
-    <h1>PlanetQUIZ</h1>
+    <h1>Planet<br>Quiz</br></h1>
     <button id="startButton">Iniciar</button>
     <button id="OpcoesButton">Opções</button>
     <button id="SobreButton">Sobre</button>
@@ -56,13 +56,8 @@
   <div class="container" id="secao-opcoes" style="display: none;">
     <h2>Opções do Jogo</h2>
     <p>Ajuste as configurações aqui.</p>
-    <button id="botao-volume">🔊</button>
+    <button id="muteToggleButton">🔊</button>
 
-    <h3>Histórico de Resultados</h3>
-    <div id="historico-lista">
-      <p>Nenhum resultado ainda.</p>
-    </div>
-    <button id="limparHistoricoButton">Limpar Histórico</button>
 
     <!-- Botão para acessar as dificuldades -->
     <button id="botao-dificuldade">Dificuldade</button>
@@ -82,8 +77,10 @@
 
   <!-- Seção Sobre -->
   <div class="container" id="secao-sobre" style="display: none;">
-    <h2>Sobre os desenvolveres e o PlanetQUIZ</h2>
-    <p>Este quiz foi criado com fins educativos, para ajudar no aprendizado de forma divertida e interativa. Foi desenvolvido por <b>Paulo Henrique</b>, com a valiosa participação de <b>Lívia Krauze</b>, <b>Walison</b>, <b>Luiz Felipe</b> e <b>Esther Marques.</b> Agradecemos a todos que colaboraram para tornar este projeto possível!</p>
+    <h2 id="sobre">Sobre os desenvolveres e o PlanetQuiz</h2>
+    <strong>
+      <p>Este quiz foi criado com fins educativos, para ajudar no aprendizado de forma divertida e interativa. Foi desenvolvido por Paulo Henrique, com a valiosa participação de Lívia Krauze, Walison, Luiz Felipe e Esther Marques. Agradecemos a todos que colaboraram para tornar este projeto possível!</p>
+    </strong>
     <button id="backFromSobre">Voltar</button>
   </div>
 
@@ -92,7 +89,11 @@
   <audio id="som-erro" src="Som/efeito-sonoro-de-erro.mp3" preload="auto"></audio>
 
   <!-- Efeitos visuais -->
-  <div id="mensagem-geral"></div>
+  <!-- Div para mostrar o resultado -->
+   <div id="secao-quiz" class="container" style="display: none;">...</div>
+<div id="mensagem-resultado" class="resultado" style="display: none;"></div>
+
+
   <div id="particles-js"></div>
 
   <script src="particles.min.js"></script>
@@ -104,10 +105,11 @@
     });
   </script>
 
-  <div id="mensagem-resultado" class="resultado"></div>
+
+
 
   <!-- Script principal -->
   <script src="script.js"></script>
+  
 </body>
 </html>
-
