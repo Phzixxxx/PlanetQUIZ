@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("✅ Script carregado!");
-
-    // === Botão de Mudo ===
-    let isMuted = false;
     const muteToggleButton = document.getElementById('muteToggleButton');
-    function toggleMute() {
-        isMuted = !isMuted;
-        muteToggleButton.textContent = isMuted ? '🔈' : '🔊';
-        document.getElementById('som-acerto').muted = isMuted;
-        document.getElementById('som-erro').muted = isMuted;
+    let isMuted = false;
+
+    if (muteToggleButton) {
+        muteToggleButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            muteToggleButton.textContent = isMuted ? '🔈' : '🔊';
+            document.getElementById('som-acerto').muted = isMuted;
+            document.getElementById('som-erro').muted = isMuted;
+        });
+    } else {
+        console.error("Botão de mute não encontrado!");
     }
-    muteToggleButton.addEventListener('click', toggleMute);
-    
     // === Função para embaralhar (Fisher-Yates) ===
     function embaralharArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
