@@ -25,6 +25,14 @@
   <p>O <strong>PlanetQuiz</strong> representa não só um projeto educativo, mas também um símbolo de aprendizado, esforço e crescimento pessoal.  
   Espero que você aproveite tanto quanto eu gostei de criá-lo — e que ele inspire outras pessoas a começarem a programar, mesmo com pouco conhecimento.  
   Afinal, <strong>todo grande programador um dia começou do zero. 🚀</strong></p>
+  <br>
+  <br>
+  <br> <!--Sei que não é o certo a se ultilizar, pórem nao tem como ultilizar o CSS aqui no codigo "Read.md" do github-->
+  <p>Este quiz web foi desenvolvido com fins <strong>**educativos**.</strong>  
+É <strong>**estritamente proibida a comercialização**</strong> deste código ou deste site.  
+
+Tive uma pequena ajuda do [@SantiagoCalebe](https://github.com/SantiagoCalebe).
+</p>
 </section>
 
 </body>
