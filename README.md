@@ -6,7 +6,7 @@
     <title>Read.me</title>
 </head>
 <body>
-    <h2>Olá sou Paulo Henrique, Um programador front-end iniciante, tenho conhecimento bom/médio de HTML e CSS (Javascript ainda estou aprendendo)</h2>
+    <h2>Olá sou Paulo Henrique, Um programador front-end iniciante, tenho conhecimento iniciante/Médio de HTML e CSS (Javascript ainda estou aprendendo)</h2>
     <section id="sobre">
   <h2>💫 Sobre o Projeto</h2>
   <p>O <strong>PlanetQuiz</strong> foi desenvolvido inteiramente com <strong>HTML, CSS e JavaScript</strong>, com o propósito de tornar o aprendizado mais <strong>divertido, interativo e acessível</strong>.</p>
