@@ -242,3 +242,115 @@ button:active {
 #sobre {
     color: #ffffff;
 }
+
+/* Container do resultado */
+#mensagem-resultado {
+  display: none; /* oculto até o final do quiz */
+  background-color: #1B1B1B;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto; /* centraliza horizontalmente */
+  position: relative; /* para permitir centralização flex */
+}
+/* Container do resultado */
+#mensagem-resultado2 {
+  display: none; /* oculto até o final do quiz */
+  background-color: #1B1B1B;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto; /* centraliza horizontalmente */
+  position: relative; /* para permitir centralização flex */
+}
+
+/* Centraliza tudo dentro do container */
+.resultado {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centraliza verticalmente */
+  align-items: center;     /* centraliza horizontalmente */
+  min-height: 200px;
+}
+
+#vlt-inicio {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #262626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#vlt-inicio:hover {
+  background-color: #7a7a7a;
+}
+
+/* Fundo escurecido */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation-duration: 0.6s;
+}
+
+/* Caixa de confirmação */
+.caixa-confirmacao {
+  background-color: #1B1B1B;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Botões */
+.botoes-confirmacao button {
+  margin: 10px;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#confirmar-voltar {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#confirmar-voltar:hover {
+  background-color: #c0392b;
+}
+
+#cancelar-voltar {
+  background-color: #ddd;
+}
+
+#cancelar-voltar:hover {
+  background-color: #bbb;
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+  
+}

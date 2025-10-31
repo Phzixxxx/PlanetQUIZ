@@ -35,21 +35,26 @@
   </noscript>
 
   <!-- Seção inicial -->
-  <div class="container" id="secao-inicial" style="display: block;">
-    <h1>Planet<br>Quiz</br></h1>
-    <button id="startButton">Iniciar</button>
-    <button id="OpcoesButton">Opções</button>
-    <button id="SobreButton">Sobre</button>
-  </div>
+<div class="container" id="secao-inicial">
+  <h1>Planet<br>Quiz</h1>
+  <button id="startButton">Iniciar</button>
+  <button id="OpcoesButton">Opções</button>
+  <button id="SobreButton">Sobre</button>
+</div>
 
-  <!-- Seção do quiz -->
-  <div class="container" id="secao-quiz" style="display: none;">
-    <div id="players-list"></div>
-    <h2 id="titulo-pergunta"></h2>
-    <p id="texto-pergunta"></p>
-    <div class="opcoes" id="container-opcoes"></div>
-    <div id="feedback"></div>
-    <button id="backButton">Voltar</button>
+<!-- Seção do quiz -->
+<div class="container" id="secao-quiz" style="display: none;">
+  <h2 id="titulo-pergunta"></h2>
+  <p id="texto-pergunta"></p>
+  <div class="opcoes" id="container-opcoes"></div>
+  <div id="feedback"></div>
+  <button id="backButton">Voltar</button>
+</div>
+
+ <!-- Mensagem de resultado -->
+  <div id="mensagem-resultado" class="resultado" style="display: none;">
+    <p id="texto-resultado"></p>
+    <button id="vlt-inicio" style="display: none;">Tentar Novamente</button>
   </div>
 
   <!-- Seção de Opções -->
@@ -57,11 +62,7 @@
     <h2>Opções do Jogo</h2>
     <p>Ajuste as configurações aqui.</p>
     <button id="muteToggleButton">🔊</button>
-
-
-    <!-- Botão para acessar as dificuldades -->
     <button id="botao-dificuldade">Dificuldade</button>
-
     <button id="backFromOpcoes">Voltar</button>
   </div>
 
@@ -79,7 +80,9 @@
   <div class="container" id="secao-sobre" style="display: none;">
     <h2 id="sobre">Sobre os desenvolveres e o PlanetQuiz</h2>
     <strong>
-      <p>Este quiz foi criado com fins educativos, para ajudar no aprendizado de forma divertida e interativa. Foi desenvolvido por Paulo Henrique, com a valiosa participação de Lívia Krauze, Walison, Luiz Felipe e Esther Marques. Agradecemos a todos que colaboraram para tornar este projeto possível!</p>
+      <p>Este quiz foi criado com fins educativos, para ajudar no aprendizado de forma divertida e interativa. Foi
+        desenvolvido por Paulo Henrique, com a valiosa participação de Lívia Krauze, Walison, Luiz Felipe e Esther
+        Marques. Agradecemos a todos que colaboraram para tornar este projeto possível!</p>
     </strong>
     <button id="backFromSobre">Voltar</button>
   </div>
@@ -89,11 +92,6 @@
   <audio id="som-erro" src="Som/efeito-sonoro-de-erro.mp3" preload="auto"></audio>
 
   <!-- Efeitos visuais -->
-  <!-- Div para mostrar o resultado -->
-   <div id="secao-quiz" class="container" style="display: none;">...</div>
-<div id="mensagem-resultado" class="resultado" style="display: none;"></div>
-
-
   <div id="particles-js"></div>
 
   <script src="particles.min.js"></script>
@@ -105,11 +103,21 @@
     });
   </script>
 
-
-
-
   <!-- Script principal -->
   <script src="script.js"></script>
-  
+
+  <!-- Janela de confirmação -->
+  <div id="confirmacao-voltar" class="overlay" style="display: none;">
+    <div class="caixa-confirmacao">
+      <p>Tem certeza que deseja voltar para o início?<br>Seu progresso será perdido.</p>
+      <div class="botoes-confirmacao">
+        <button id="confirmar-voltar">Sim, voltar</button>
+        <button id="cancelar-voltar">Cancelar</button>
+      </div>
+      
+    </div>
+  </div>
+
 </body>
+
 </html>
